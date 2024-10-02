@@ -17,7 +17,7 @@ headers = {
 
 # Paths to files
 parquet_path = "/Users/topesalahudeen/Desktop/TDI/week4/output/file.parquet.gzip"
-excel_path = "/Users/topesalahudeen/Desktop/TDI/week4/outputfile.xlsx"
+excel_path = "/Users/topesalahudeen/Desktop/TDI/week4/output/file.xlsx"
 
 # Function to normalize JSON data and convert to DataFrame
 def get_normalized_df(json_data):
