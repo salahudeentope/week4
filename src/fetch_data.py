@@ -2,7 +2,7 @@ import os
 import requests
 import pandas as pd
 from decouple import config
-from load_to_postgress import save_to_postgresql  # Import the save_to_postgresql function
+from load_to_postgres import save_to_postgresql  # Import the save_to_postgresql function
 from transform_data import transform_data  # Import the transform_data function
 
 # API query details
@@ -37,24 +37,25 @@ def append_to_excel(df, path):
     df.to_excel(path, index=False)
 
 # Function to fetch data from the API, append it, and write to both Parquet, Excel, and PostgreSQL
-def fetch_and_append_data():
+def fetch_data():
     response = requests.get(url, headers=headers, params=querystring)
     if response.status_code == 200:
         print("Data retrieved successfully!")
         data = response.json()['data']
-        df = get_normalized_df(data)
+        # df = get_normalized_df(data)
         
-        # Transform salary data (Hourly and Monthly to Yearly)
-        df = transform_data(df)
+        # # Transform salary data (Hourly and Monthly to Yearly)
+        # df = transform_data(df)
         
-        # Append the DataFrame to Parquet and Excel files
-        append_to_parquet(df, parquet_path)
-        append_to_excel(df, excel_path)
+        # # # # Append the DataFrame to Parquet and Excel files
+        # # append_to_parquet(df, parquet_path)
+        # # append_to_excel(df, excel_path)
         
-        # Save the DataFrame to PostgreSQL
-        save_to_postgresql(df, 'salary_data')
-        
-        print(f"Data appended to {parquet_path}, {excel_path}, and PostgreSQL.")
+        # # # Save the DataFrame to PostgreSQL
+        # # save_to_postgresql(df, 'salary_data')
+        # # # print(df)
+        # print(f"Data appended to {parquet_path}, {excel_path}, and PostgreSQL.")
+        return data
     else:
         print("Failed to retrieve data. Status code:", response.status_code)
 
