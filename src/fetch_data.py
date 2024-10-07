@@ -60,4 +60,4 @@ def fetch_data():
         print("Failed to retrieve data. Status code:", response.status_code)
 
 if __name__ == "__main__":
-    fetch_and_append_data()
+    fetch_data()
