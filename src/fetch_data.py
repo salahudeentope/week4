@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 from decouple import config
 from load_to_postgress import save_to_postgresql  # Import the save_to_postgresql function
+from transform_data import transform_data  # Import the transform_data function
 
 # API query details
 url = "https://jsearch.p.rapidapi.com/estimated-salary"
@@ -42,6 +43,9 @@ def fetch_and_append_data():
         print("Data retrieved successfully!")
         data = response.json()['data']
         df = get_normalized_df(data)
+        
+        # Transform salary data (Hourly and Monthly to Yearly)
+        df = transform_data(df)
         
         # Append the DataFrame to Parquet and Excel files
         append_to_parquet(df, parquet_path)
