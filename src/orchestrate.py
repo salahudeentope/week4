@@ -4,6 +4,8 @@ from prefect import task, flow
 from fetch_data import fetch_data
 from transform_data import transform_data
 from load_to_postgres import save_to_postgresql
+from datetime import timedelta, datetime
+from prefect.client.schemas.schedules import IntervalSchedule
 
 
 # Paths to files
@@ -78,4 +80,12 @@ def etl_pipeline():
 
 # To run the flow, use this command or schedule it
 if __name__ == "__main__":
-    etl_pipeline()
+     etl_pipeline.serve(schedules=[
+    IntervalSchedule(
+      interval=timedelta(seconds=60),
+        anchor_date=datetime(2024, 9, 28),
+        timezone="America/Chicago"
+        )
+    ]
+    )
+
